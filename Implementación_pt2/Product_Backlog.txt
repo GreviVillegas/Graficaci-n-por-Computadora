@@ -1,0 +1,17 @@
+Lista de Funcionalidades del Triangulo.
+0. Dibujar Triangulo.
+1. Elegir un color en base al modelo RGB y uno de 
+usuario(HSV,HSL,...)
+	tanto para el borde como para el rellenado.
+2. Elegir el estilo o grosor de linea.
+	* Estilo (Ej. tipo de pintado, pintar 3 si y 2 no)
+	* Grosor (Pinte mas pixeles vecinos)
+3. Pintar o rellenar con Scan-Line
+4. Los objetos implementados se deben desplazar de estas maneras:
+	- Translacion.
+	- Escalacion.
+	- Rotacion.
+5. Almacenar la figura generada en un formato grafico
+6. Interfaz de usuario GUI implementada con caracteristicas
+basicas de usabilidad, facil e intuitiva.
+
