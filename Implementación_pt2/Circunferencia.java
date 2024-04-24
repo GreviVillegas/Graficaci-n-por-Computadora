@@ -1,23 +1,39 @@
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import java.awt.FlowLayout;
+import java.awt.*;
 
-public class BasicUI extends JFrame {
-    public BasicUI() {
-        // Configurar el comportamiento de la ventana
-        this.setTitle("Interfaz de usuario básica");
-        this.setSize(300, 200);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLayout(new FlowLayout());
+public class Circunferencia {
+    private int radio;
 
-        // Crear y agregar un botón a la ventana
-        JButton button = new JButton("Click me");
-        this.add(button);
+    public Circunferencia(int radio) {
+        this.radio = radio;
     }
 
-    public static void main(String[] args) {
-        // Crear una instancia de la interfaz de usuario y hacerla visible
-        BasicUI ui = new BasicUI();
-        ui.setVisible(true);
+    public void dibujar(Graphics g, int centerX, int centerY) {
+        int x = 0, y = radio;
+        int d = 3 - 2 * radio;
+
+        drawCircle(g, x, y, centerX, centerY);
+
+        while (y >= x) {
+            x++;
+
+            if (d > 0) {
+                y--;
+                d = d + 4 * (x - y) + 10;
+            } else {
+                d = d + 4 * x + 6;
+            }
+            drawCircle(g, x, y, centerX, centerY);
+        }
+    }
+
+    private void drawCircle(Graphics g, int x, int y, int centerX, int centerY) {
+        g.fillOval(centerX + x, centerY + y, 2, 2);
+        g.fillOval(centerX + y, centerY + x, 2, 2);
+        g.fillOval(centerX + y, centerY - x, 2, 2);
+        g.fillOval(centerX + x, centerY - y, 2, 2);
+        g.fillOval(centerX - x, centerY - y, 2, 2);
+        g.fillOval(centerX - y, centerY - x, 2, 2);
+        g.fillOval(centerX - y, centerY + x, 2, 2);
+        g.fillOval(centerX - x, centerY + y, 2, 2);
     }
 }
