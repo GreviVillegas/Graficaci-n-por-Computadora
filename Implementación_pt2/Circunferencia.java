@@ -2,12 +2,15 @@ import java.awt.*;
 
 public class Circunferencia {
     private int radio;
+    private Color color;
 
-    public Circunferencia(int radio) {
+    public Circunferencia(int radio, Color color) {
         this.radio = radio;
+        this.color = color;
     }
 
     public void dibujar(Graphics g, int centerX, int centerY) {
+        g.setColor(color);
         int x = 0, y = radio;
         int d = 3 - 2 * radio;
 

@@ -6,14 +6,27 @@ import java.awt.event.ActionListener;
 public class BasicUI extends JFrame {
     private JTextField textField;
     private DrawPanel drawPanel;
+    private JColorChooser colorChooser;
+
 
     public BasicUI() {
         this.setTitle("Interfaz de usuario básica");
         this.setSize(500, 500);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
+        //setear el color
+        colorChooser = new JColorChooser();
 
-        JLabel title = new JLabel("CIRCUNFERENCIA");
+        this.add(colorChooser);
+
+            // Crear un panel de vista previa personalizado
+        JPanel previewPanel = new JPanel();
+        previewPanel.setBackground(colorChooser.getColor());
+        previewPanel.add(new JLabel("Muestra de Color", JLabel.CENTER));
+        colorChooser.setPreviewPanel(previewPanel);
+        this.add(colorChooser);
+
+        JLabel title = new JLabel("CIRCUNFERENCIA", JLabel.CENTER);
         title.setFont(new Font("Arial", Font.BOLD, 24));
         this.add(title);
 
@@ -25,7 +38,9 @@ public class BasicUI extends JFrame {
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 int radio = Integer.parseInt(textField.getText());
-                Circunferencia circunferencia = new Circunferencia(radio);
+                Color color = colorChooser.getColor();
+                Circunferencia circunferencia = new Circunferencia(radio, color);
+                
                 drawPanel.setCircunferencia(circunferencia);
                 drawPanel.repaint();
             }
