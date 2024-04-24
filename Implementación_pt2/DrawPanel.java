@@ -4,7 +4,7 @@ import java.awt.*;
 public class DrawPanel extends JPanel {
     private Circunferencia circunferencia;
     private static final int GRID_SIZE = 10; // Tamaño de la grilla en píxeles
-
+    private int grosorLinea = 1;
     public void setCircunferencia(Circunferencia circunferencia) {
         this.circunferencia = circunferencia;
     }
@@ -30,4 +30,9 @@ public class DrawPanel extends JPanel {
             circunferencia.dibujar(g, centerX, centerY);
         }
     }
+
+    
+public void setLineThickness(int gl) {
+    this.grosorLinea = gl;
+}
 }
