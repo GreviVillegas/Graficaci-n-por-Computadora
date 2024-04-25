@@ -43,7 +43,7 @@ public class BasicUI extends JFrame {
                     drawPanel.printAll(g);
                     g.dispose();
         
-                    File file = new File("D:/Graficacion/circunferencia.png");
+                    File file = new File((System.getProperty("user.dir"))+"imagen.png");
                     ImageIO.write(image, "png", file);
                 } catch (IOException ex) {
                     ex.printStackTrace();
