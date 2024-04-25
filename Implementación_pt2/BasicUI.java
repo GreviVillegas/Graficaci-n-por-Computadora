@@ -26,6 +26,31 @@ public class BasicUI extends JFrame {
         JPanel controlPanel = new JPanel();
         controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.Y_AXIS));
 
+<<<<<<< Updated upstream
+=======
+        JButton exportButton = new JButton("Exportar");
+        exportButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    BufferedImage image = new BufferedImage(drawPanel.getWidth(), drawPanel.getHeight(), BufferedImage.TYPE_INT_RGB);
+                    Graphics2D g = image.createGraphics();
+                    drawPanel.printAll(g);
+                    g.dispose();
+        
+                    File file = new File((System.getProperty("user.dir"))+"imagen.png");
+                    ImageIO.write(image, "png", file);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
+JPanel controlPanel = new JPanel();
+controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.Y_AXIS));
+controlPanel.add(exportButton);
+>>>>>>> Stashed changes
         //COLOR CIRCULO
         colorChooser = new JColorChooser();
         JPanel previewPanel = new JPanel();
