@@ -133,6 +133,25 @@ public class BasicUI extends JFrame {
         });
         controlPanel.add(pintar);
 
+        // Añadir botón "Cambiar Tamaño"
+        JButton sizeButton = new JButton("Cambiar Tamaño");
+        sizeButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JTextField sizeMultiplierField = new JTextField(5);
+                JPanel myPanel = new JPanel();
+                myPanel.add(new JLabel("Multiplicador de tamaño:"));
+                myPanel.add(sizeMultiplierField);
+                int result = JOptionPane.showConfirmDialog(null, myPanel, 
+                       "Ingrese un multiplicador de tamaño", JOptionPane.OK_CANCEL_OPTION);
+                if (result == JOptionPane.OK_OPTION) {
+                    double sizeMultiplier = Double.parseDouble(sizeMultiplierField.getText());
+                    drawPanel.getCircunferencia().cambiarTamaño(sizeMultiplier);
+                    drawPanel.repaint();
+                }
+            }
+        });
+        controlPanel.add(sizeButton);
+
         drawPanel = new DrawPanel();
         drawPanel.setPreferredSize(new Dimension(400, 400));
 

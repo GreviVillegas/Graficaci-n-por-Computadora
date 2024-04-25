@@ -89,6 +89,10 @@ public class Circunferencia {
         }
     }
 
+    public void cambiarTamaño(double multiplicador) {
+        this.radio *= multiplicador;
+    }
+
     private void drawPoints(Graphics g, int x, int y) {
         g.fillOval(centerX + x, centerY + y, 2, 2);
         g.fillOval(centerX + y, centerY + x, 2, 2);
