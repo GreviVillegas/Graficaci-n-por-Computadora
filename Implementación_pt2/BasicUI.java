@@ -7,6 +7,8 @@ public class BasicUI extends JFrame {
     private JTextField textField;
     private DrawPanel drawPanel;
     private JColorChooser colorChooser;
+    private JColorChooser colorChooserFill;
+
     private JComboBox<String> lineStyleComboBox;
     private JTextField deltaXc;
     private JTextField deltaYc;
@@ -24,6 +26,7 @@ public class BasicUI extends JFrame {
         JPanel controlPanel = new JPanel();
         controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.Y_AXIS));
 
+        //COLOR CIRCULO
         colorChooser = new JColorChooser();
         JPanel previewPanel = new JPanel();
         previewPanel.setBackground(colorChooser.getColor());
@@ -31,6 +34,8 @@ public class BasicUI extends JFrame {
         colorChooser.setPreviewPanel(previewPanel);
         controlPanel.add(colorChooser);
 
+
+        
         lineStyleComboBox = new JComboBox<>(new String[]{"Segmentado", "Continuo"});
         controlPanel.add(lineStyleComboBox);
 
@@ -68,6 +73,8 @@ public class BasicUI extends JFrame {
         });
         controlPanel.add(button);
 
+        
+
         JLabel deltaXLabel = new JLabel("Traslado en X: ");
         deltaXc = new JTextField(10);
         deltaXc.setMaximumSize(new Dimension(200, deltaXc.getPreferredSize().height));
@@ -80,6 +87,7 @@ public class BasicUI extends JFrame {
         controlPanel.add(deltaYLabel);
         controlPanel.add(deltaYc);
 
+
         JButton moveButton = new JButton("Trasladar");
         moveButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -90,6 +98,28 @@ public class BasicUI extends JFrame {
             }
         });
         controlPanel.add(moveButton);
+
+
+
+        JLabel relleno = new JLabel("Relleno de la circunferencia:");
+        controlPanel.add(relleno);
+
+        colorChooserFill = new JColorChooser();
+        JPanel previewPanelFill = new JPanel();
+        previewPanelFill.setBackground(colorChooserFill.getColor());
+        colorChooserFill.setPreviewPanel(previewPanelFill);
+        controlPanel.add(colorChooserFill);
+
+        JButton pintar = new JButton("Pintar");
+        pintar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                drawPanel.getCircunferencia().pintar(colorChooserFill.getColor());;
+                drawPanel.repaint();
+            }
+        });
+        controlPanel.add(pintar);
+
+
         drawPanel = new DrawPanel();
         drawPanel.setPreferredSize(new Dimension(400, 400));
 
