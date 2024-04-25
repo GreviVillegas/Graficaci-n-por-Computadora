@@ -3,6 +3,7 @@ import java.awt.*;
 public class Circunferencia {
     private int radio;
     private Color color;
+    private Color colorRelleno = new Color(0,0,0,0);
     private String estiloLinea;
     private int grosorLinea;
     private int centerX;
@@ -39,6 +40,7 @@ public class Circunferencia {
     }
 
     public void dibujar(Graphics g) {
+        fillCircle(g);
         Graphics2D g2d = (Graphics2D) g;
         g2d.setColor(color);
         if (estiloLinea.equals("Segmentado")) {
@@ -68,6 +70,15 @@ public class Circunferencia {
         }
     }
 
+    private void fillCircle(Graphics g){
+        g.setColor(colorRelleno);
+        g.fillOval(centerX-radio, centerY-radio,radio*2,radio*2);
+    }
+
+    public void pintar(Color colorRelleno){
+        this.colorRelleno = colorRelleno;
+    }
+
     private void drawCircle(Graphics g, int x, int y) {
         if (estiloLinea.equals("Segmentado")) {
             if (x % 2 == 0) {
@@ -88,6 +99,5 @@ public class Circunferencia {
         g.fillOval(centerX - y, centerY + x, 2, 2);
         g.fillOval(centerX - x, centerY + y, 2, 2);
     }
-
 
 }
