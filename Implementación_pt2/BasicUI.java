@@ -1,4 +1,6 @@
 import javax.swing.*;
+
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -54,6 +56,21 @@ public class BasicUI extends JFrame {
         controlPanel.add(label);
         controlPanel.add(textField);
 
+        final JTextField redField = new JTextField(3);
+        final JTextField greenField = new JTextField(3);
+        final JTextField blueField = new JTextField(3);
+
+        redField.setColumns(3);
+        greenField.setColumns(3);
+        blueField.setColumns(3);
+
+        controlPanel.add(new JLabel("R:"));
+        controlPanel.add(redField);
+        controlPanel.add(new JLabel("G:"));
+        controlPanel.add(greenField);
+        controlPanel.add(new JLabel("B:"));
+        controlPanel.add(blueField);
+
         JButton button = new JButton("Iniciar");
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -62,11 +79,13 @@ public class BasicUI extends JFrame {
                 String estiloLinea = (String) lineStyleComboBox.getSelectedItem();
                 int grosorLinea = lineThicknessSlider.getValue();
                 Circunferencia circunferencia = new Circunferencia(radio, color, estiloLinea, grosorLinea, drawPanel.getWidth() / 2, drawPanel.getHeight() / 2);
+
                 drawPanel.setCircunferencia(circunferencia);
                 drawPanel.repaint();
             }
         });
         controlPanel.add(button);
+
 
         JLabel deltaXLabel = new JLabel("Traslado en X: ");
         deltaXc = new JTextField(10);
@@ -90,6 +109,30 @@ public class BasicUI extends JFrame {
             }
         });
         controlPanel.add(moveButton);
+
+        JButton fillButton = new JButton("Rellenar");
+fillButton.addActionListener(new ActionListener() {
+    public void actionPerformed(ActionEvent e) {
+        int red = Integer.parseInt(redField.getText());
+        int green = Integer.parseInt(greenField.getText());
+        int blue = Integer.parseInt(blueField.getText());
+        Color fillColor = new Color(red, green, blue);
+        Circunferencia circunferencia = drawPanel.getCircunferencia();
+        if (circunferencia != null) {
+            circunferencia.setColorRelleno(fillColor);
+            drawPanel.repaint();
+        }
+    }
+});
+controlPanel.add(fillButton);
+
+JPanel buttonPanel = new JPanel(new FlowLayout());
+buttonPanel.add(button);
+buttonPanel.add(fillButton);
+
+// Añadir el panel de botones al panel de control
+controlPanel.add(buttonPanel);
+
         drawPanel = new DrawPanel();
         drawPanel.setPreferredSize(new Dimension(400, 400));
 

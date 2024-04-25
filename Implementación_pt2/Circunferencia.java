@@ -7,6 +7,8 @@ public class Circunferencia {
     private int grosorLinea;
     private int centerX;
     private int centerY;
+    private Color colorRelleno;
+
     public Circunferencia(int radio, Color color) {
         this.radio = radio;
         this.color = color;
@@ -28,6 +30,9 @@ public class Circunferencia {
         this.centerY = centerY;
     }
 
+    public void setColorRelleno(Color colorRelleno) {
+        this.colorRelleno = colorRelleno;
+    }
 
     public void trasladar(int deltaX, int deltaY) {
         this.centerX += deltaX;
@@ -66,6 +71,11 @@ public class Circunferencia {
             }
             drawCircle(g, x, y);
         }
+
+        // Llamada a la función rellenar() para rellenar el círculo
+        if (colorRelleno != null) {
+            rellenar(g);
+        }
     }
 
     private void drawCircle(Graphics g, int x, int y) {
@@ -89,5 +99,8 @@ public class Circunferencia {
         g.fillOval(centerX - x, centerY + y, 2, 2);
     }
 
-
+    public void rellenar(Graphics g) {
+        g.setColor(colorRelleno);
+        g.fillOval(centerX - radio, centerY - radio, 2 * radio, 2 * radio);
+    }
 }
