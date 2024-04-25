@@ -7,11 +7,15 @@ public class BasicUI extends JFrame {
     private JTextField textField;
     private DrawPanel drawPanel;
     private JColorChooser colorChooser;
-    private JColorChooser colorChooserFill;
 
     private JComboBox<String> lineStyleComboBox;
     private JTextField deltaXc;
     private JTextField deltaYc;
+
+    // Agregar campos de texto para R, G, B
+    private JTextField redField;
+    private JTextField greenField;
+    private JTextField blueField;
 
     public BasicUI() {
         this.setTitle("Interfaz de usuario básica");
@@ -34,8 +38,6 @@ public class BasicUI extends JFrame {
         colorChooser.setPreviewPanel(previewPanel);
         controlPanel.add(colorChooser);
 
-
-        
         lineStyleComboBox = new JComboBox<>(new String[]{"Segmentado", "Continuo"});
         controlPanel.add(lineStyleComboBox);
 
@@ -73,8 +75,6 @@ public class BasicUI extends JFrame {
         });
         controlPanel.add(button);
 
-        
-
         JLabel deltaXLabel = new JLabel("Traslado en X: ");
         deltaXc = new JTextField(10);
         deltaXc.setMaximumSize(new Dimension(200, deltaXc.getPreferredSize().height));
@@ -87,7 +87,6 @@ public class BasicUI extends JFrame {
         controlPanel.add(deltaYLabel);
         controlPanel.add(deltaYc);
 
-
         JButton moveButton = new JButton("Trasladar");
         moveButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -99,26 +98,40 @@ public class BasicUI extends JFrame {
         });
         controlPanel.add(moveButton);
 
-
-
         JLabel relleno = new JLabel("Relleno de la circunferencia:");
         controlPanel.add(relleno);
 
-        colorChooserFill = new JColorChooser();
-        JPanel previewPanelFill = new JPanel();
-        previewPanelFill.setBackground(colorChooserFill.getColor());
-        colorChooserFill.setPreviewPanel(previewPanelFill);
-        controlPanel.add(colorChooserFill);
+        // Reemplazar JColorChooser con JTextField para R, G, B
+        JLabel redLabel = new JLabel("R:");
+        redField = new JTextField(3);
+        redField.setMaximumSize(redField.getPreferredSize());
+        controlPanel.add(redLabel);
+        controlPanel.add(redField);
+
+        JLabel greenLabel = new JLabel("G:");
+        greenField = new JTextField(3);
+        greenField.setMaximumSize(greenField.getPreferredSize());
+        controlPanel.add(greenLabel);
+        controlPanel.add(greenField);
+
+        JLabel blueLabel = new JLabel("B:");
+        blueField = new JTextField(3);
+        blueField.setMaximumSize(blueField.getPreferredSize());
+        controlPanel.add(blueLabel);
+        controlPanel.add(blueField);
 
         JButton pintar = new JButton("Pintar");
         pintar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                drawPanel.getCircunferencia().pintar(colorChooserFill.getColor());;
+                int red = Integer.parseInt(redField.getText());
+                int green = Integer.parseInt(greenField.getText());
+                int blue = Integer.parseInt(blueField.getText());
+                Color fillColor = new Color(red, green, blue);
+                drawPanel.getCircunferencia().pintar(fillColor);
                 drawPanel.repaint();
             }
         });
         controlPanel.add(pintar);
-
 
         drawPanel = new DrawPanel();
         drawPanel.setPreferredSize(new Dimension(400, 400));
