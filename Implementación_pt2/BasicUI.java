@@ -1,7 +1,11 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class BasicUI extends JFrame {
     private JTextField textField;
@@ -27,15 +31,34 @@ public class BasicUI extends JFrame {
         title.setFont(new Font("Arial", Font.BOLD, 24));
         this.add(title, BorderLayout.NORTH);
 
-        JPanel controlPanel = new JPanel();
-        controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.Y_AXIS));
+        drawPanel = new DrawPanel();
+        drawPanel.setPreferredSize(new Dimension(400, 400));
 
+        JButton exportButton = new JButton("Exportar");
+        exportButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    BufferedImage image = new BufferedImage(drawPanel.getWidth(), drawPanel.getHeight(), BufferedImage.TYPE_INT_RGB);
+                    Graphics2D g = image.createGraphics();
+                    drawPanel.printAll(g);
+                    g.dispose();
+        
+                    File file = new File("D:/Graficacion/circunferencia.png");
+                    ImageIO.write(image, "png", file);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
+JPanel controlPanel = new JPanel();
+controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.Y_AXIS));
+controlPanel.add(exportButton);
         //COLOR CIRCULO
         colorChooser = new JColorChooser();
-        JPanel previewPanel = new JPanel();
-        previewPanel.setBackground(colorChooser.getColor());
-        previewPanel.add(new JLabel("", JLabel.CENTER));
-        colorChooser.setPreviewPanel(previewPanel);
+        colorChooser.setPreviewPanel(new JPanel());
         controlPanel.add(colorChooser);
 
         lineStyleComboBox = new JComboBox<>(new String[]{"Segmentado", "Continuo"});
@@ -152,6 +175,8 @@ public class BasicUI extends JFrame {
         });
         controlPanel.add(sizeButton);
 
+        
+
         drawPanel = new DrawPanel();
         drawPanel.setPreferredSize(new Dimension(400, 400));
 
@@ -160,7 +185,7 @@ public class BasicUI extends JFrame {
         centerPanel.add(drawPanel);
 
         this.add(centerPanel, BorderLayout.CENTER);
-    }
+    }   
 
     public static void main(String[] args) {
         BasicUI ui = new BasicUI();
