@@ -9,6 +9,10 @@ public class DrawPanel extends JPanel {
         this.circunferencia = circunferencia;
     }
 
+    public Circunferencia getCircunferencia() {
+        return circunferencia;
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -27,7 +31,7 @@ public class DrawPanel extends JPanel {
             g.setColor(Color.BLACK);
             int centerX = this.getWidth() / 2;
             int centerY = this.getHeight() / 2;
-            circunferencia.dibujar(g, centerX, centerY);
+            circunferencia.dibujar(g);
         }
     }
 

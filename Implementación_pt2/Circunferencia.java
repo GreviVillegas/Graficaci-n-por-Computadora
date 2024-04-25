@@ -5,7 +5,8 @@ public class Circunferencia {
     private Color color;
     private String estiloLinea;
     private int grosorLinea;
-
+    private int centerX;
+    private int centerY;
     public Circunferencia(int radio, Color color) {
         this.radio = radio;
         this.color = color;
@@ -17,12 +18,27 @@ public class Circunferencia {
         this.estiloLinea = linea;
         this.grosorLinea = grosorLinea;
     }
+
+    public Circunferencia(int radio, Color color, String linea, int grosorLinea, int centerX, int centerY) {
+        this.radio = radio;
+        this.color = color;
+        this.estiloLinea = linea;
+        this.grosorLinea = grosorLinea;
+        this.centerX = centerX;
+        this.centerY = centerY;
+    }
+
+
+    public void trasladar(int deltaX, int deltaY) {
+        this.centerX += deltaX;
+        this.centerY += deltaY;
+    }
+
     public void setLineThickness(int lineThickness) {
         this.grosorLinea = lineThickness;
     }
 
-    public void dibujar(Graphics g, int centerX, int centerY) {
-        
+    public void dibujar(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setColor(color);
         if (estiloLinea.equals("Segmentado")) {
@@ -33,11 +49,11 @@ public class Circunferencia {
         }
         g2d.setStroke(new BasicStroke(grosorLinea));
         g.drawOval(centerX - radio, centerY - radio, 2 * radio, 2 * radio);
-    
+
         int x = 0, y = radio;
         int d = 3 - 2 * radio;
 
-        drawCircle(g, x, y, centerX, centerY);
+        drawCircle(g, x, y);
 
         while (y >= x) {
             x++;
@@ -48,21 +64,21 @@ public class Circunferencia {
             } else {
                 d = d + 4 * x + 6;
             }
-            drawCircle(g, x, y, centerX, centerY);
+            drawCircle(g, x, y);
         }
     }
 
-    private void drawCircle(Graphics g, int x, int y, int centerX, int centerY) {
+    private void drawCircle(Graphics g, int x, int y) {
         if (estiloLinea.equals("Segmentado")) {
             if (x % 2 == 0) {
-                drawPoints(g, x, y, centerX, centerY);
+                drawPoints(g, x, y);
             }
         } else {
-            drawPoints(g, x, y, centerX, centerY);
+            drawPoints(g, x, y);
         }
     }
 
-    private void drawPoints(Graphics g, int x, int y, int centerX, int centerY) {
+    private void drawPoints(Graphics g, int x, int y) {
         g.fillOval(centerX + x, centerY + y, 2, 2);
         g.fillOval(centerX + y, centerY + x, 2, 2);
         g.fillOval(centerX + y, centerY - x, 2, 2);

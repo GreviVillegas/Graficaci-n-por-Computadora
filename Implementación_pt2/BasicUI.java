@@ -8,6 +8,8 @@ public class BasicUI extends JFrame {
     private DrawPanel drawPanel;
     private JColorChooser colorChooser;
     private JComboBox<String> lineStyleComboBox;
+    private JTextField deltaXc;
+    private JTextField deltaYc;
 
     public BasicUI() {
         this.setTitle("Interfaz de usuario básica");
@@ -59,13 +61,35 @@ public class BasicUI extends JFrame {
                 Color color = colorChooser.getColor();
                 String estiloLinea = (String) lineStyleComboBox.getSelectedItem();
                 int grosorLinea = lineThicknessSlider.getValue();
-                Circunferencia circunferencia = new Circunferencia(radio, color, estiloLinea, grosorLinea);
+                Circunferencia circunferencia = new Circunferencia(radio, color, estiloLinea, grosorLinea, drawPanel.getWidth() / 2, drawPanel.getHeight() / 2);
                 drawPanel.setCircunferencia(circunferencia);
                 drawPanel.repaint();
             }
         });
         controlPanel.add(button);
 
+        JLabel deltaXLabel = new JLabel("Traslado en X: ");
+        deltaXc = new JTextField(10);
+        deltaXc.setMaximumSize(new Dimension(200, deltaXc.getPreferredSize().height));
+        controlPanel.add(deltaXLabel);
+        controlPanel.add(deltaXc);
+
+        JLabel deltaYLabel = new JLabel("Traslado en Y: ");
+        deltaYc = new JTextField(10);
+        deltaYc.setMaximumSize(new Dimension(200, deltaYc.getPreferredSize().height));
+        controlPanel.add(deltaYLabel);
+        controlPanel.add(deltaYc);
+
+        JButton moveButton = new JButton("Trasladar");
+        moveButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                int deltaX = Integer.parseInt(deltaXc.getText());
+                int deltaY = Integer.parseInt(deltaYc.getText());
+                drawPanel.getCircunferencia().trasladar(deltaX, deltaY);
+                drawPanel.repaint();
+            }
+        });
+        controlPanel.add(moveButton);
         drawPanel = new DrawPanel();
         drawPanel.setPreferredSize(new Dimension(400, 400));
 
