@@ -1,5 +1,5 @@
 Lista de Funcionalidades del Triangulo.
-0. Dibujar Triangulo.
+0. Dibujar Triangulo. X
 1. Elegir un color en base al modelo RGB y uno de 
 usuario(HSV,HSL,...)
 	tanto para el borde como para el rellenado.
